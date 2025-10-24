@@ -1,82 +1,55 @@
-# Opgaveskabelon til Frontend Design tema på Frontend-valgfaget
+De største udfordringer var at få design og spacing til at matche 1:1 med Figma – især i sektioner som AboutHero og Services. Jeg lærte vigtigheden af præcise marginer og padding samt at bruge CSS-variabler i stedet for enkelt vise-kodede farver, for at sikre konsistens på tværs af komponenter.
 
-Se opgavebeskrivelsen på Fronter.
+Et andet centralt punkt var at håndtere knappernes hover-effekter ensartet. Jeg løste det ved at samle alle varianter i én komponent (Button.astro) og styre farvevariationer gennem klasser som:
+".btn--yellow:hover {
+  background: #ffe5a2;
+}
+.btn--dark:hover {
+  background: #fff;
+  color: #181818;
+}"
 
-## Medfølgende Data
+Jeg har prøvet mit bedste med at arbejde ud fra DRY-princippet (Don’t Repeat Yourself) ved at genbruge komponenter som Nav.astro, Footer.astro og Newsletter.astro på tværs af siderne.
+Derudover er der brugt semantiske HTML-tags som <header>, <section> og <article> for at forbedre både struktur og tilgængelighed.
 
-Der medfølger indholdsdata i form af lokale JSON-filer, som du kan bruge til din opgave. Det er ikke et krav til opgaven, men det kan gøre det nemmere og hurtigere at få tekst og billeder ind i dit projekt.
+Jeg brugte også responsive grids og flexbox til layout, fx i team-sektionen:
+".cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 80px 51px;
+}
+@media (max-width: 700px) {
+  .cards {
+    grid-template-columns: 1fr;
+  }
+}"
 
-Bemærk, at CaseStudy-siden allerede inkluderer data fra en lokal JSON-fil.
+Jeg har valgt at holde al CSS komponent-specifik i stedet for at bruge en samlet global stylesheet.
+Det betyder, at hver .astro-fil indeholder sine egne <style>-regler, fx:
+"<style>
+  .hero {
+    display: flex;
+    align-items: center;
+    background: #f5f5f5;
+  }
+</style>"
 
-Dokumentationen til anvendelsen af dataene finder du på: [https://frontend-design-theme.netlify.app/](https://frontend-design-theme.netlify.app/).
+Jeg har også arbejdet med JSON-filer til at hente data ind i komponenter — fx i Projections.astro, hvor dataene kommer fra financialProjections.json:
+"{
+  "title": "Financial Projections",
+  "values": [
+    {
+      "icon": "cal",
+      "title": "The Balance Sheet",
+      "description": "A summary of assets and liabilities."
+    }
+  ]
+}"
 
-Her er et eksempel på, hvordan du kan bruge dataene i dine Astro-komponenter:
 
-```astro
-import employees from "@data/employees.json";
-
-console.log(employees);
-```
-
-## Brug af hjælpekomponenter
-
-### DynamicImage.astro
-
-Brug denne komponent til at vise billeder dynamisk fra lokale datafiler. Du skal blot sende stien fra datasættet direkte til komponenten.
-
-Eksempel med data:
-
-```astro
-{employees.map((employee) => (
-  <DynamicImage
-    imagePath={employee.img}
-    altText={employee.name}
-    width={200}
-    height={200}
-  />
-))}
-```
-
-### DynamicIcon.astro
-
-`DynamicIcon` bruges til at vise SVG-ikoner dynamisk baseret på et navn fra dine data.
-
-Eksempel med data:
-
-```astro
-{employee.social_links.map((link) => (
-  <DynamicIcon name={link.icon} />
-))}
-```
-
-Her vises et ikon for hvert socialt medie, hvor `icon`-feltet matcher filnavnet på SVG-ikonet i `src/icons/`.
-
-### HeroBgWrapper.astro
-
-HeroBgWrapper bruges til Hero-sektioner på diverse undersider. Brug `imagePath` til at angive baggrundsbilledet. Du skal selv hente billederne fra Figma og lægge dem i mappen `src/assets/images`. Henvis derefter kun til filnavnet (f.eks. 'case.webp').
-
-Alt markup du placerer mellem <HeroBgWrapper> og </HeroBgWrapper> bliver vist ovenpå baggrunden.
-
-Eksempel:
-
-```astro
-<HeroBgWrapper imagePath="case.webp" class="hero-bg">
-  <h1>Din overskrift</h1>
-</HeroBgWrapper>
-```
-
-Du kan tilføje ekstra styling via `class` eller `style`-props, og alt indhold mellem tags bliver vist ovenpå baggrunden.
-
----
-
-## Import af SVG-ikoner direkte
-
-Du kan også importere SVG-ikoner direkte i dine komponenter, hvis du ønsker mere kontrol eller styling:
-
-```astro
-import Checkmark from "@icons/checkmark.svg";
-
-<Checkmark width={32} height={32} class="my-icon" />
-```
-
-Se evt. `src/pages/svgs.astro` for flere eksempler på direkte import og brug af SVG-ikoner.
+Gennem opgaven har jeg fået erfaring med at
+- Arbejde med komponentstruktur i Astro
+- Afprøve præcise designmatch med Figma
+- Organisere CSS lokalt i komponenter
+- Bruge Git og GitHub som versionsstyring
+- Deploye en færdig side via Netlify.

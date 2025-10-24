@@ -1,0 +1,147 @@
+---
+interface Props {
+  label: string;
+  href?: string;
+  variant?: "light" | "yellow" | "dark";
+  size?: "default" | "small" | "newsletter" | "hero";
+  fullWidth?: boolean;
+  ariaLabel?: string;
+  class?: string;
+  [key: string]: any;
+}
+
+const {
+  label,
+  href,
+  variant = "yellow",
+  size = "default",
+  fullWidth = false,
+  ariaLabel,
+  class: extraClass = "",
+  ...attrs
+} = Astro.props as Props;
+
+const base = "btn";
+const variantClass = `btn--${variant}`;
+const sizeClass = `btn--${size}`;
+const fullClass = fullWidth ? "is-full" : "";
+const classes = [base, variantClass, sizeClass, fullClass, extraClass]
+  .join(" ")
+  .trim();
+---
+
+{
+  href ? (
+    <a href={href} class={classes} aria-label={ariaLabel ?? label} {...attrs}>
+      {label}
+    </a>
+  ) : (
+    <button
+      type="button"
+      class={classes}
+      aria-label={ariaLabel ?? label}
+      {...attrs}
+    >
+      {label}
+    </button>
+  )
+}
+
+<style>
+  @layer components {
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      text-decoration: none;
+      border: 1px solid transparent;
+      border-radius: 999px;
+      cursor: pointer;
+      user-select: none;
+      transition:
+        background-color 0.25s ease,
+        border-color 0.25s ease,
+        color 0.25s ease,
+        box-shadow 0.25s ease;
+      font-family: "Lato", system-ui, sans-serif;
+      font-weight: 600;
+      line-height: 1;
+      width: auto;
+      max-width: max-content;
+    }
+
+    .btn.is-full {
+      width: 100%;
+      max-width: 100%;
+    }
+
+    .btn--light {
+      background: #ffffff;
+      color: #181818;
+      border-color: #ebebeb;
+    }
+    .btn--light:hover {
+      background: #bcbcbc;
+      border-color: #bcbcbc;
+      color: #181818;
+    }
+
+    .btn--yellow {
+      background: #ffcc4a;
+      color: #181818;
+      border-color: #ffcc4a;
+    }
+    .btn--yellow:hover {
+      background: #ffe5a2;
+      border-color: #ffe5a2;
+      color: #181818;
+    }
+
+    .btn--dark {
+      background: #181818;
+      color: #ffffff;
+      border-color: #181818;
+    }
+    .btn--dark:hover {
+      background: #333333;
+      color: #ffffff;
+      border-color: #181818;
+    }
+
+    .btn--default {
+      padding: 14px 24px;
+      font-size: 16px;
+      border-radius: 42px;
+    }
+
+    .btn--small {
+      padding: 10px 16px;
+      font-size: 14px;
+      border-radius: 32px;
+    }
+
+    .btn--newsletter {
+      padding: 15px 45px;
+      font-size: 18px;
+      border-radius: 42px;
+    }
+
+    .btn--hero {
+      padding: 16px 31px;
+      font-size: 16px;
+      border-radius: 42px;
+    }
+
+    .btn:focus-visible {
+      outline: 2px solid #ffcc4a;
+      outline-offset: 2px;
+    }
+
+    .btn[disabled] {
+      opacity: 0.6;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+  }
+</style>

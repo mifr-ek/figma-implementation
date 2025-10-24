@@ -1,0 +1,110 @@
+---
+interface Props {
+  bg: string;
+  eyebrow?: string;
+  title?: string;
+}
+
+const {
+  bg,
+  eyebrow = "CASE STUDIES",
+  title = "Taxes & Efficiency",
+} = Astro.props as Props;
+---
+
+<section class="cs-hero" style={`--bg:url('${bg}')`}>
+  <div class="content">
+    <div class="title-box">
+      <span class="eyebrow">{eyebrow}</span>
+      <h1 class="title">{title}</h1>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cs-hero {
+    position: relative;
+    min-height: 420px;
+    isolation: isolate;
+    overflow: hidden;
+  }
+  .cs-hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: var(--bg);
+    background-size: cover;
+    background-position: center;
+    opacity: 0.9;
+    z-index: 0;
+  }
+  .content {
+    position: absolute;
+    top: 140px;
+    left: 330px;
+    z-index: 1;
+  }
+  .title-box {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(5.5px);
+    -webkit-backdrop-filter: blur(5.5px);
+    border-radius: 29px;
+    padding: 32px 48px 42px;
+    display: grid;
+    gap: 10px;
+  }
+  .eyebrow {
+    display: inline-flex;
+    height: 24px;
+    padding: 0 15px;
+    background: #ffcc4a;
+    color: #181818;
+    font:
+      400 16px/1 "Lato",
+      sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 2.32px;
+    border-radius: 20px;
+    width: max-content;
+  }
+  .title {
+    margin: 0;
+    color: #181818;
+    font:
+      700 50px/1.16 "Cabin",
+      sans-serif;
+  }
+
+  @media (max-width: 900px) {
+    .content {
+      left: 60px;
+      top: 120px;
+    }
+    .title {
+      font-size: 42px;
+    }
+    .title-box {
+      padding: 28px 36px 36px;
+      border-radius: 24px;
+    }
+  }
+  @media (max-width: 600px) {
+    .content {
+      left: 20px;
+      top: 100px;
+    }
+    .title {
+      font-size: 34px;
+    }
+    .eyebrow {
+      font-size: 14px;
+      height: 22px;
+      padding: 0 12px;
+      letter-spacing: 2px;
+    }
+    .title-box {
+      padding: 24px;
+      border-radius: 20px;
+    }
+  }
+</style>

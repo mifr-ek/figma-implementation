@@ -1,0 +1,197 @@
+---
+import { Image } from "astro:assets";
+import CheckIcon from "@icons/checkmark.svg";
+import expectImg from "@data/images/expect.webp";
+---
+
+<section class="expect">
+  <div class="expect__inner">
+    <div class="expect__media">
+      <div class="expect__decor">
+        <div class="expect__dots"></div>
+        <div class="expect__square"></div>
+      </div>
+      <Image src={expectImg} alt="Collaboration team" format="webp" />
+    </div>
+
+    <div class="expect__content">
+      <p class="expect__label">We’ll work with you</p>
+      <h2 class="expect__title">What To Expect</h2>
+      <p class="expect__text">
+        Our collaboration is built on transparency, efficiency, and measurable
+        results. Together, we create strategies tailored to your unique needs
+        and goals.
+      </p>
+
+      <ul class="expect__list">
+        <li class="point">
+          <span class="dot">
+            <CheckIcon
+              class="check"
+              width="14"
+              height="14"
+              aria-hidden="true"
+            />
+          </span>
+          <span>
+            Collaborate to build actionable strategies that drive sustainable
+            growth and deliver tangible outcomes.
+          </span>
+        </li>
+        <li class="point">
+          <span class="dot">
+            <CheckIcon
+              class="check"
+              width="14"
+              height="14"
+              aria-hidden="true"
+            />
+          </span>
+          <span>
+            Identify opportunities to optimize processes and implement impactful
+            solutions with measurable results.
+          </span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  @layer components {
+    .expect {
+      background: #fff;
+      color: #181818;
+      padding: 60px 24px;
+    }
+
+    .expect__inner {
+      max-width: 1200px;
+      margin-inline: auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .expect__media {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .expect__decor {
+      position: absolute;
+      inset: 0;
+    }
+
+    .expect__square {
+      position: absolute;
+      top: 40px;
+      left: 40px;
+      width: 120px;
+      height: 120px;
+      background: #47a36d;
+      border-radius: 12px;
+      z-index: 0;
+    }
+
+    .expect__dots {
+      position: absolute;
+      top: -20px;
+      left: -20px;
+      width: 220px;
+      height: 180px;
+      background-image: radial-gradient(#c0891c 1.4px, transparent 1.4px);
+      background-size: 16px 16px;
+      opacity: 0.25;
+      z-index: -1;
+    }
+
+    .expect__media :global(img) {
+      border-radius: 12px;
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+    }
+
+    .expect__content {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .expect__label {
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-size: 14px;
+      color: #888;
+      font-weight: 500;
+    }
+
+    .expect__title {
+      font-family: "Cabin", sans-serif;
+      font-size: 36px;
+      font-weight: 700;
+      margin: 0;
+      line-height: 1.2;
+    }
+
+    .expect__text {
+      font-family: "Lato", sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      color: #444;
+      max-width: 480px;
+    }
+
+    .expect__list {
+      list-style: none;
+      padding: 0;
+      margin: 24px 0 0 0;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .point {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-family: "Lato", sans-serif;
+      font-size: 15px;
+      line-height: 1.6;
+      color: #222;
+    }
+
+    .dot {
+      inline-size: 28px;
+      block-size: 28px;
+      border-radius: 50%;
+      background: #dff0d6;
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .check {
+      width: 14px;
+      height: 14px;
+      display: block;
+    }
+
+    @media (max-width: 900px) {
+      .expect__inner {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+      .expect__media {
+        order: -1;
+      }
+    }
+  }
+</style>

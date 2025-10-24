@@ -1,0 +1,231 @@
+---
+import CheckIcon from "/src/icons/checkmark.svg";
+
+import visionImg from "../data/images/Vision.jpg?url";
+---
+
+<section class="vision" aria-labelledby="vision-title">
+  <div class="wrap">
+    <div class="text">
+      <p class="eyebrow">OUR VISION</p>
+
+      <h2 id="vision-title" class="title">Turn your ideas into reality.</h2>
+
+      <p class="lede">
+        Capitalize on low hanging fruit to identify a ballpark value added
+        activity beta test. Override the digital divide with additional from
+        DevOps.
+      </p>
+
+      <ul class="bullets" role="list">
+        <li class="bullet">
+          <span class="dot"><CheckIcon class="svg" /></span>
+          <p class="bullet-text">
+            Bring to the table win-win survival strategies to ensure proactive
+            domination.<br />At the end of the day.
+          </p>
+        </li>
+        <li class="bullet">
+          <span class="dot"><CheckIcon class="svg" /></span>
+          <p class="bullet-text">
+            Capitalize on low hanging fruit to identify a ballpark value added
+            activity to beta test override the digital.
+          </p>
+        </li>
+      </ul>
+    </div>
+
+    <figure class="media">
+      <img src={visionImg} alt="Team working at a table" />
+    </figure>
+
+    <ul class="stats" role="list">
+      <li class="stat">
+        <span class="num">1128+</span>
+        <span class="label">Successful Work</span>
+      </li>
+      <li class="stat">
+        <span class="num">908+</span>
+        <span class="label">Team member</span>
+      </li>
+      <li class="stat">
+        <span class="num">258+</span>
+        <span class="label">Happy Customers</span>
+      </li>
+      <li class="stat">
+        <span class="num">564+</span>
+        <span class="label">Creative Idea</span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<style>
+  :root {
+    --black: #181818;
+    --text: #595566;
+    --green-pill: #dff0d6;
+    --bg: #fff;
+    --radius: 20px;
+  }
+
+  .vision {
+    background: var(--bg);
+    padding: 96px 0 64px;
+  }
+
+  .wrap {
+    width: min(1200px, 90%);
+    margin-inline: auto;
+    display: grid;
+    grid-template-columns: 1fr 712px;
+    gap: 64px;
+    align-items: start;
+  }
+
+  .text {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .eyebrow {
+    margin: 0;
+    font:
+      400 16px/1.475 Lato,
+      system-ui,
+      sans-serif;
+    letter-spacing: 2.32px;
+    text-transform: uppercase;
+    color: var(--black);
+  }
+
+  .title {
+    margin: 0;
+    font:
+      700 45px/1.16 Cabin,
+      sans-serif;
+    color: var(--black);
+  }
+
+  .lede {
+    margin: 0;
+    max-width: 590px;
+    font:
+      400 16px/1.475 Lato,
+      system-ui,
+      sans-serif;
+    color: var(--text);
+  }
+
+  .bullets {
+    list-style: none;
+    margin: 8px 0 0;
+    padding: 0;
+    display: grid;
+    gap: 14px;
+  }
+
+  .bullet {
+    display: grid;
+    grid-template-columns: 28px 1fr;
+    gap: 12px;
+    align-items: start;
+  }
+
+  .dot {
+    inline-size: 28px;
+    block-size: 28px;
+    border-radius: 50%;
+    background: var(--green-pill);
+    display: grid;
+    place-items: center;
+  }
+
+  .svg {
+    width: 14px;
+    height: 14px;
+    display: block;
+  }
+
+  .bullet-text {
+    margin: 0;
+    font:
+      400 16px/1.475 Lato,
+      system-ui,
+      sans-serif;
+    color: var(--text);
+  }
+
+  .media {
+    width: 712px;
+    height: 475px;
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+
+  .media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .stats {
+    grid-column: 1 / -1;
+    list-style: none;
+    margin: 48px 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    justify-items: center;
+    align-items: center;
+    gap: 24px;
+    text-align: center;
+  }
+
+  .stat {
+    display: grid;
+    justify-items: center;
+    gap: 6px;
+  }
+
+  .num {
+    font:
+      700 50px/1.16 Cabin,
+      sans-serif;
+    color: var(--black);
+  }
+
+  .label {
+    font:
+      500 18px/1.16 Lato,
+      system-ui,
+      sans-serif;
+    color: var(--black);
+  }
+
+  @media (max-width: 1100px) {
+    .wrap {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+    .media {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 712/475;
+    }
+    .stats {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .num {
+      font-size: 40px;
+    }
+    .label {
+      font-size: 16px;
+    }
+  }
+</style>

@@ -1,0 +1,238 @@
+---
+import Button from "@components/Button.astro";
+
+const title = "Subscribe To Our Newsletter";
+const subtitle = "Build stronger Customer Relationships with Consultalk";
+const placeholder = "Your mail address";
+const buttonLabel = "Subscribe";
+---
+
+<section class="newsletter">
+  <div class="wrap">
+    <div class="copy">
+      <h2 class="title">{title}</h2>
+      <p class="lede">
+        Build stronger Customer Relationships with <strong>Consultalk</strong>
+      </p>
+    </div>
+
+    <form class="form" onsubmit="return false;">
+      <label class="visually-hidden" for="nl-email">Email address</label>
+      <input
+        id="nl-email"
+        name="email"
+        type="email"
+        placeholder={placeholder}
+        required
+      />
+      <Button
+        type="submit"
+        variant="yellow"
+        size="newsletter"
+        label={buttonLabel}
+      />
+    </form>
+
+    <div class="decor dots" aria-hidden="true"></div>
+    <div class="decor corner" aria-hidden="true"></div>
+  </div>
+</section>
+
+<style>
+  @layer components {
+    .newsletter {
+      display: flex;
+      justify-content: center;
+      padding-inline: 24px;
+      background: #ffffff;
+      padding: 32px;
+    }
+    .newsletter__inner {
+      padding: 28px;
+      border-radius: 24px;
+      background: #1b1b1b;
+    }
+
+    .wrap {
+      position: relative;
+      width: 100%;
+      max-width: 1200px;
+      min-height: 252px;
+      background: #181818;
+      border-radius: 24px;
+      padding: 20px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 141px;
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .copy {
+      color: #fff;
+    }
+    .title {
+      margin: 0 0 6px;
+      font-family: "Cabin", system-ui, sans-serif;
+      font-size: 35px;
+      font-weight: 700;
+      line-height: 116%;
+    }
+    .lede {
+      margin: 0;
+      font-family: "Lato", system-ui, sans-serif;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 147.5%;
+      color: #fff;
+      opacity: 0.9;
+    }
+    .lede strong {
+      font-weight: 700;
+    }
+
+    .form {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      z-index: 1;
+    }
+    .form input {
+      height: 56px;
+      width: clamp(240px, 36vw, 460px);
+      padding: 0 20px;
+      border-radius: 4px;
+      border: 1px solid #e3e3e3;
+      background: #fff;
+      color: #181818;
+      font-family: "Lato", system-ui, sans-serif;
+      font-size: 16px;
+      line-height: 1;
+      outline: none;
+      transition:
+        border-color 0.2s,
+        box-shadow 0.2s;
+    }
+    .form input::placeholder {
+      color: #a9a9a9;
+    }
+    .form input:focus {
+      border-color: #ffcc4a;
+      box-shadow: 0 0 0 3px rgba(255, 204, 74, 0.25);
+    }
+
+    .visually-hidden {
+      position: absolute !important;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(1px, 1px, 1px, 1px);
+      white-space: nowrap;
+    }
+
+    .decor {
+      position: absolute;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .decor.dots {
+      top: -8px;
+      right: -8px;
+      width: 280px;
+      height: 280px;
+      background-image: radial-gradient(#ffcc4a 1.4px, transparent 1.4px);
+      background-size: 14px 14px;
+      opacity: 0.3;
+      transform: rotate(12deg);
+      transform-origin: top right;
+    }
+
+    .decor.corner {
+      right: -90px;
+      bottom: -48px;
+      width: 190px;
+      height: 190px;
+      background: #4eaf4e;
+      border-radius: 20px;
+      transform: rotate(135deg);
+    }
+
+    .hero__image {
+      position: relative;
+    }
+    .hero__image :global(img) {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+    }
+
+    .hero__image::after {
+      content: "";
+      position: absolute;
+      top: 24px;
+      right: 24px;
+
+      width: 290px;
+      height: 220px;
+
+      background-image: radial-gradient(#c7a86a 1.4px, transparent 1.4px);
+      background-size: 18px 18px;
+
+      border-radius: 8px;
+      opacity: 0.9;
+
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    @media (max-width: 900px) {
+      .hero__image::after {
+        width: 220px;
+        height: 160px;
+        top: 16px;
+        right: 16px;
+        background-size: 16px 16px;
+      }
+    }
+
+    @media (max-width: 1024px) {
+      .wrap {
+        gap: 80px;
+      }
+    }
+    @media (max-width: 900px) {
+      .wrap {
+        grid-template-columns: 1fr;
+        gap: 24px;
+        padding: 24px;
+        min-height: unset;
+      }
+      .form {
+        justify-self: start;
+      }
+      .form input {
+        width: min(100%, 460px);
+      }
+
+      .decor.dots {
+        width: 200px;
+        height: 200px;
+        right: -24px;
+        top: -16px;
+        opacity: 0.35;
+        transform: rotate(10deg);
+      }
+      .decor.corner {
+        width: 150px;
+        height: 150px;
+        right: -70px;
+        bottom: -40px;
+      }
+    }
+  }
+</style>

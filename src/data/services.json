@@ -3,17 +3,20 @@
     {
       "title": "Finance & Restructuring",
       "description": "Unlock financial clarity and implement effective restructuring strategies...",
-      "buttonText": "Our Services"
+      "buttonText": "Our Services",
+      "href": "/about/"
     },
     {
       "title": "Our Approach",
       "description": "Explore our proven methods for achieving growth and building resilience...",
-      "buttonText": "More About"
+      "buttonText": "More About",
+      "href": "/team/"
     },
     {
       "title": "Consultalk Result",
       "description": "Experience actionable insights and measurable results through expert consultation...",
-      "buttonText": "Explore Our Solution"
+      "buttonText": "Explore Our Solution",
+      "href": "/case/"
     }
   ]
 }

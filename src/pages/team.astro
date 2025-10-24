@@ -1,0 +1,15 @@
+---
+import Layout from "@layouts/Layout.astro";
+import TeamHero from "@components/TeamHero.astro";
+import TeamIntro from "@components/TeamIntro.astro";
+import Newsletter from "@components/Newsletter.astro";
+import teamBg from "@data/images/team.jpg?url";
+---
+
+<Layout title="Team">
+  <main>
+    <TeamHero bg={teamBg} eyebrow="TEAM" titleLine1="The Consultors" />
+    <TeamIntro />
+    <Newsletter />
+  </main>
+</Layout>

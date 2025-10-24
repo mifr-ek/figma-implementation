@@ -1,0 +1,100 @@
+---
+interface Props {
+  caseName: string;
+  category: string;
+  date: string;
+  buttonLabel?: string;
+  buttonHref?: string;
+}
+
+const {
+  caseName,
+  category,
+  date,
+  buttonLabel = "Live Preview",
+  buttonHref = "#",
+} = Astro.props as Props;
+---
+
+<div class="meta">
+  <div class="cell">
+    <p class="label">Case Name</p>
+    <p class="value">{caseName}</p>
+  </div>
+  <div class="cell">
+    <p class="label">Category</p>
+    <p class="value">{category}</p>
+  </div>
+  <div class="cell">
+    <p class="label">Date</p>
+    <p class="value">{date}</p>
+  </div>
+
+  <a class="cta" href={buttonHref}>{buttonLabel}</a>
+</div>
+
+<style>
+  .meta {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr auto;
+    align-items: center;
+    gap: 28px;
+    padding: 18px 24px;
+    background: #181818;
+    color: #fff;
+    border-radius: 18px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+  }
+
+  .label {
+    margin: 0 0 4px;
+    font:
+      400 12px/1 "Lato",
+      sans-serif;
+    opacity: 0.75;
+  }
+
+  .value {
+    margin: 0;
+    font:
+      600 14px/1.1 "Lato",
+      sans-serif;
+  }
+
+  .cta {
+    justify-self: end;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 22px;
+    border-radius: 28px;
+    background: #ffcc4a;
+    color: #181818;
+    text-decoration: none;
+    font:
+      700 14px/1 "Lato",
+      sans-serif;
+    transition:
+      background-color 0.25s ease,
+      color 0.25s ease,
+      border-color 0.25s ease;
+    white-space: nowrap;
+  }
+
+  .cta:hover {
+    background: #ffe5a2;
+    border-color: #ffe5a2;
+    color: #181818;
+  }
+
+  @media (max-width: 900px) {
+    .meta {
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+    .cta {
+      grid-column: 1 / -1;
+      justify-self: start;
+    }
+  }
+</style>

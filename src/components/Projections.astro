@@ -1,0 +1,306 @@
+---
+import data from "@data/financialProjections.json";
+
+import BalanceIcon from "@icons/cal.svg";
+import IncomeIcon from "@icons/card.svg";
+import PlanIcon from "@icons/law.svg";
+import RatioIcon from "@icons/money.svg";
+
+const ICONS = {
+  cal: BalanceIcon,
+  card: IncomeIcon,
+  law: PlanIcon,
+  money: RatioIcon,
+};
+
+const headingTitle = data.title;
+const headingLede = data.subtitle;
+
+const items = data.values.map((v, i) => ({
+  title: v.title,
+  text: v.description,
+  Icon: ICONS[v.icon] ?? BalanceIcon,
+  featured: i === 1,
+}));
+
+const srcFrom = (v) => (typeof v === "string" ? v : (v?.src ?? v));
+---
+
+<section id="projections" class="fp" aria-label="Financial Projections">
+  <div class="fp__inner">
+    <header class="fp__head">
+      <div class="fp__titles">
+        <h2 class="fp__title">{headingTitle}</h2>
+        <p class="fp__lede">{headingLede}</p>
+      </div>
+
+      <div class="fp__controls" aria-label="Slider controls">
+        <button
+          class="fp__btn fp__btn--prev"
+          type="button"
+          aria-label="Previous"
+        >
+          <svg
+            width="22"
+            height="22"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            aria-hidden="true"
+          >
+            <path d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"></path>
+          </svg>
+        </button>
+
+        <button class="fp__btn fp__btn--next" type="button" aria-label="Next">
+          <svg
+            width="22"
+            height="22"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            aria-hidden="true"
+          >
+            <path d="m8.59 16.59 1.41 1.41 6-6-6-6-1.41 1.41L13.17 12z"></path>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <div class="fp__viewport">
+      <div class="fp__row">
+        {
+          items.map((it) => (
+            <article class={"card" + (it.featured ? " card--featured" : "")}>
+              <div class="card__icon">
+                <img src={srcFrom(it.Icon)} alt="" width="36" height="30" />
+              </div>
+              <h3 class="card__title">{it.title}</h3>
+              <p class="card__text">{it.text}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  @layer components {
+    :root {
+      --fp-gap: 33px;
+      --fp-bg: #f5f5f5;
+      --fp-dark: #181818;
+      --fp-grey: #595566;
+      --fp-yellow: #ffc32b;
+      --to-yellow: brightness(0) saturate(100%) invert(74%) sepia(68%)
+        saturate(682%) hue-rotate(351deg) brightness(101%) contrast(102%);
+    }
+
+    .fp {
+      background: var(--fp-bg);
+      color: var(--fp-dark);
+      padding: 70px 24px;
+    }
+
+    .fp__inner {
+      max-width: 1200px;
+      margin-inline: auto;
+    }
+
+    .fp__head {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 26px;
+    }
+
+    .fp__titles {
+      max-width: 645px;
+    }
+
+    .fp__title {
+      margin: 0 0 10px;
+      font-family: "Cabin", sans-serif;
+      font-weight: 700;
+      font-size: 45px;
+      line-height: 1.16;
+      color: #181818;
+    }
+
+    .fp__lede {
+      margin: 0;
+      font-family: "Lato", sans-serif;
+      font-size: 16px;
+      line-height: 1.475;
+      color: var(--fp-grey);
+    }
+
+    .fp__controls {
+      display: flex;
+      gap: 23px;
+    }
+
+    .fp__btn {
+      inline-size: 70px;
+      block-size: 70px;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      transition: transform 0.12s ease;
+    }
+
+    .fp__btn--prev {
+      background: #111;
+      color: #fff;
+    }
+
+    .fp__btn--next {
+      background: var(--fp-yellow);
+      color: #111;
+    }
+
+    .fp__btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .fp__viewport {
+      overflow-x: auto;
+      overflow-y: hidden;
+      overscroll-behavior-x: contain;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 0;
+      scrollbar-width: none;
+    }
+
+    .fp__viewport::-webkit-scrollbar {
+      height: 0;
+      display: none;
+    }
+
+    .fp__row {
+      display: flex;
+      gap: var(--fp-gap);
+    }
+
+    .card {
+      flex: 0 0 379px;
+      scroll-snap-align: start;
+      background: #ebebeb;
+      border-radius: 20px;
+      padding: 45px 33px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition:
+        background 0.3s ease,
+        color 0.3s ease;
+    }
+
+    .card--featured {
+      background: var(--fp-dark);
+      color: #fff;
+    }
+
+    .card__icon img {
+      display: block;
+      filter: none;
+    }
+
+    .card--featured .card__icon img {
+      filter: var(--to-yellow);
+    }
+
+    .card__title {
+      margin: 12px 0 6px 0;
+      font:
+        700 16px/1.2 "Lato",
+        sans-serif;
+      color: currentColor;
+    }
+
+    .card__text {
+      margin: 0;
+      font:
+        400 16px/1.475 "Lato",
+        sans-serif;
+      color: rgba(24, 24, 24, 0.9);
+    }
+
+    .card--featured .card__text {
+      color: #fff;
+      opacity: 0.9;
+    }
+
+    @media (max-width: 960px) {
+      .fp {
+        padding: 56px 20px;
+      }
+      .fp__head {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+      }
+      .fp__title {
+        font-size: 36px;
+      }
+      .fp__btn {
+        inline-size: 56px;
+        block-size: 56px;
+      }
+      .card {
+        flex-basis: 300px;
+        padding: 28px 22px;
+      }
+    }
+  }
+</style>
+
+<script>
+  const root = document.getElementById("projections");
+  const viewport = root?.querySelector(".fp__viewport");
+  const row = root?.querySelector(".fp__row");
+  const prev = root?.querySelector(".fp__btn--prev");
+  const next = root?.querySelector(".fp__btn--next");
+  const cards = row ? Array.from(row.querySelectorAll(".card")) : [];
+
+  function setActiveByScroll() {
+    if (!viewport || !cards.length) return;
+    const vpLeft = viewport.getBoundingClientRect().left;
+    let bestIdx = 0;
+    let bestDist = Infinity;
+
+    cards.forEach((card, i) => {
+      const rect = card.getBoundingClientRect();
+      const dist = Math.abs(rect.left - vpLeft);
+      if (dist < bestDist) {
+        bestDist = dist;
+        bestIdx = i;
+      }
+    });
+
+    cards.forEach((c) => c.classList.remove("card--featured"));
+    cards[bestIdx].classList.add("card--featured");
+  }
+
+  function step() {
+    if (!cards.length) return 0;
+    const cardW = cards[0].getBoundingClientRect().width;
+    const gap = parseFloat(getComputedStyle(row).gap || 33);
+    return cardW + (Number.isFinite(gap) ? gap : 33);
+  }
+
+  function go(dir) {
+    if (!viewport) return;
+    viewport.scrollBy({ left: dir * step(), behavior: "smooth" });
+    setTimeout(setActiveByScroll, 260);
+  }
+
+  prev?.addEventListener("click", () => go(-1));
+  next?.addEventListener("click", () => go(1));
+  viewport?.addEventListener("scroll", setActiveByScroll, { passive: true });
+  window.addEventListener("resize", setActiveByScroll);
+  window.addEventListener("load", setActiveByScroll);
+  setActiveByScroll();
+</script>

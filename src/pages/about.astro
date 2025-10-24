@@ -1,0 +1,25 @@
+---
+import Layout from "@layouts/Layout.astro";
+import AboutHero from "@components/AboutHero.astro";
+import AboutVision from "@components/AboutVision.astro";
+import AboutCoreValues from "@components/AboutCoreValues.astro";
+import AboutTeam from "@components/AboutTeam.astro";
+import Faq from "@components/Faq.astro";
+import Newsletter from "@components/Newsletter.astro";
+
+const heroBg = "/src/data/images/abouthero.jpg";
+---
+
+<Layout title="About">
+  <AboutHero
+    bg={heroBg}
+    eyebrow="About"
+    titleLine1="Creative Services For Boost"
+    titleLine2="Your Business Growth"
+  />
+  <AboutVision />
+  <AboutCoreValues />
+  <AboutTeam />
+  <Faq />
+  <Newsletter />
+</Layout>

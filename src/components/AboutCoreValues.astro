@@ -1,0 +1,210 @@
+---
+import data from "../data/coreValues.json";
+import Button from "@components/Button.astro";
+
+const { title, subtitle, button, values } = data;
+---
+
+<section class="core-values-about" aria-labelledby="core-values-title">
+  <div class="container">
+    <!-- Header -->
+    <header class="head">
+      <div class="head__left">
+        <p class="eyebrow">GROWING WITH OUR CLIENTS</p>
+        <h2 id="core-values-title" class="title">{title}</h2>
+        <p class="subtitle">{subtitle}</p>
+      </div>
+
+      <Button
+        href={button.link}
+        label={button.text}
+        variant="dark"
+        size="default"
+        ariaLabel={button.text}
+        class="core-btn"
+      />
+    </header>
+
+    <div class="grid">
+      {
+        values.map((item) => (
+          <article class="card">
+            <div class="icon">
+              <img
+                src={`/src/icons/${item.icon}.svg`}
+                alt=""
+                width="24"
+                height="24"
+              />
+            </div>
+
+            <h3 class="card__title">{item.title}</h3>
+            <p class="card__desc">{item.description}</p>
+
+            <a href={item.link.url} class="card__link">
+              {item.link.text}
+              <img
+                src="/src/icons/arrow--right.svg"
+                alt=""
+                class="arrow"
+                width="14"
+                height="14"
+              />
+            </a>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .core-values-about {
+    background: #f5f5f5;
+    padding: 100px 0;
+  }
+
+  .container {
+    width: min(1200px, 90%);
+    margin-inline: auto;
+  }
+
+  .head {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: start;
+    gap: 20px 24px;
+    margin-bottom: 48px;
+  }
+
+  .eyebrow {
+    margin: 0 0 8px;
+    font:
+      500 13px/1 Lato,
+      system-ui,
+      sans-serif;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #8c8c8c;
+  }
+
+  .title {
+    margin: 0 0 8px;
+    font:
+      700 42px/1.2 Cabin,
+      sans-serif;
+    color: #181818;
+  }
+
+  .subtitle {
+    margin: 0;
+    max-width: 720px;
+    font:
+      400 16px/1.6 Lato,
+      system-ui,
+      sans-serif;
+    color: #595566;
+  }
+
+  .core-btn {
+    align-self: start;
+    justify-self: end;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 24px;
+  }
+
+  .card {
+    background: #fff;
+    border: 1px solid #eaeaea;
+    border-radius: 20px;
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    color: #181818;
+  }
+
+  .icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: #181818;
+    display: grid;
+    place-items: center;
+    margin-bottom: 6px;
+  }
+
+  .icon img {
+    width: 24px;
+    height: 24px;
+    filter: brightness(0) invert(1);
+    display: block;
+  }
+
+  .card__title {
+    margin: 0;
+    font:
+      700 18px/1.25 Cabin,
+      sans-serif;
+  }
+
+  .card__desc {
+    margin: 0 0 8px;
+    font:
+      400 15px/1.6 Lato,
+      system-ui,
+      sans-serif;
+    color: #555;
+  }
+
+  .card__link {
+    margin-top: auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font:
+      600 15px/1 Lato,
+      system-ui,
+      sans-serif;
+    color: #181818;
+    text-decoration: none;
+  }
+
+  .arrow {
+    width: 14px;
+    height: 14px;
+    transition: transform 0.2s ease;
+  }
+
+  .card__link:hover .arrow {
+    transform: translateX(4px);
+  }
+
+  @media (max-width: 1100px) {
+    .grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 640px) {
+    .title {
+      font-size: 34px;
+    }
+
+    .head {
+      grid-template-columns: 1fr;
+    }
+
+    .core-btn {
+      justify-self: start;
+    }
+
+    .grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

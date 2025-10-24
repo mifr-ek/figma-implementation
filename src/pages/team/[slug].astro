@@ -1,0 +1,173 @@
+---
+import Layout from "@layouts/Layout.astro";
+import employees from "@data/employees.json";
+
+import InstagramIcon from "/src/icons/instagram.svg";
+import FacebookIcon from "/src/icons/facebook.svg";
+import TwitterIcon from "/src/icons/twitter.svg";
+
+const iconMap = {
+  instagram: InstagramIcon,
+  facebook: FacebookIcon,
+  twitter: TwitterIcon,
+};
+
+export function getStaticPaths() {
+  return employees.map((person) => ({
+    params: { slug: person.slug },
+    props: { person },
+  }));
+}
+
+const { person } = Astro.props;
+---
+
+<Layout title={person.name}>
+  <main class="wrap">
+    <section class="grid">
+      <figure class="photo">
+        <img src={person.img} alt={person.name} />
+      </figure>
+
+      <div class="content">
+        <div class="name-row">
+          <h1 class="name">{person.name}</h1>
+
+          {
+            person.social_links && person.social_links.length > 0 && (
+              <div class="icons" aria-label="Social links">
+                {person.social_links.map((s) => {
+                  const Icon = iconMap[s.platform];
+                  if (!Icon) return null;
+                  return (
+                    <a href={s.url} aria-label={s.platform} class="icon">
+                      <Icon />
+                    </a>
+                  );
+                })}
+              </div>
+            )
+          }
+        </div>
+
+        <p class="title">{person.title}</p>
+        <hr class="rule" />
+
+        <article class="long">
+          {person.description_long}
+        </article>
+
+        <h2 class="h2">Past experience</h2>
+        <p class="long">{person.past_experience}</p>
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<style>
+  :root {
+    --black: #181818;
+    --text: #595566;
+  }
+
+  .wrap {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 80px 20px;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 380px 1fr;
+    gap: 40px;
+    align-items: start;
+  }
+
+  .photo {
+    margin: 0;
+    border-radius: 16px;
+    overflow: hidden;
+  }
+  .photo img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .name-row {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    margin: 0 0 6px;
+    flex-wrap: wrap;
+  }
+
+  .name {
+    margin: 0;
+    font:
+      700 48px/1.12 "Cabin",
+      sans-serif;
+    color: var(--black);
+  }
+
+  .icons {
+    display: inline-flex;
+    align-items: center;
+    gap: 25px;
+  }
+  .icon :global(svg) {
+    width: 29px;
+    height: 29px;
+    fill: var(--black);
+    opacity: 0.9;
+    transition:
+      transform 0.15s ease,
+      opacity 0.15s ease;
+    display: block;
+  }
+  .icon:hover :global(svg) {
+    transform: translateY(-2px);
+    opacity: 1;
+  }
+
+  .title {
+    margin: 0 0 20px;
+    font:
+      400 16px/1.5 "Lato",
+      sans-serif;
+    color: var(--text);
+  }
+
+  .rule {
+    border: 0;
+    height: 1px;
+    background: #e5e5e5;
+    margin: 0 0 24px;
+  }
+
+  .h2 {
+    margin: 24px 0 12px;
+    font:
+      700 22px/1.2 "Cabin",
+      sans-serif;
+    color: var(--black);
+  }
+
+  .long {
+    margin: 0 0 28px;
+    font:
+      400 16px/1.6 "Lato",
+      sans-serif;
+    color: var(--text);
+    white-space: pre-wrap;
+  }
+
+  @media (max-width: 900px) {
+    .grid {
+      grid-template-columns: 1fr;
+    }
+    .name {
+      font-size: 36px;
+    }
+  }
+</style>

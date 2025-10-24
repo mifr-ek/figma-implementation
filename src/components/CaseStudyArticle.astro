@@ -1,67 +1,110 @@
 ---
-//@ts-nocheck
-import DynamicImage from "@components/helpers/DynamicImage.astro";
-import caseStudy from "@data/caseStudy.json";
-const { caseName, category, date, image, buttonLabel } = caseStudy.caseDetails;
+import data from "@data/caseStudy.json";
+const { sections } = data;
 ---
 
-<article>
-  <header>
-    <DynamicImage imagePath={image} altText={caseName} />
-    <div class="case-details">
-      <dl>
-        <div>
-          <dt>Case Name</dt>
-          <dd>{caseName}</dd>
-        </div>
-        <div>
-          <dt>Category</dt>
-          <dd class="category">{category}</dd>
-        </div>
-        <div>
-          <dt>Date</dt>
-          <dd class="date">{date}</dd>
-        </div>
-      </dl>
-      <a href="#0" class="button">{buttonLabel}</a>
-    </div>
-  </header>
+<section class="case-wrapper" aria-labelledby="cs-title">
   {
-    caseStudy.sections.map((section) => (
-      <section>
-        {caseStudy.sections[0] === section ? (
-          <h2>{section.title}</h2>
-        ) : (
-          <h3>{section.title}</h3>
+    sections.map((sec, i) => (
+      <article class="section" id={`sec-${i}`}>
+        <h2 class="h2">{sec.title}</h2>
+
+        {typeof sec.content === "string" && (
+          <div class="prose">
+            <p>{sec.content}</p>
+
+            {sec.highlights && (
+              <ul class="bullets">
+                {sec.highlights.map((li) => (
+                  <li>{li}</li>
+                ))}
+              </ul>
+            )}
+          </div>
         )}
 
-        {Array.isArray(section.content) ? (
-          <>
-            {section.content.map((item) => (
-              <p>{item}</p>
+        {Array.isArray(sec.content) && (
+          <div class="prose">
+            {sec.content.map((p) => (
+              <p>{p}</p>
             ))}
-          </>
-        ) : (
-          <p>{section.content}</p>
+          </div>
         )}
-        {section.highlights && (
-          <ul>
-            {section.highlights.map((highlight) => (
-              <li>{highlight}</li>
-            ))}
-          </ul>
+
+        {sec.image && (
+          <figure class="figure">
+            <img src={sec.image} alt="" />
+          </figure>
         )}
-        {section.image && (
-          <DynamicImage
-            imagePath={section.image}
-            altText={section.title}
-            width={600}
-            height={400}
-          />
-        )}
-      </section>
+      </article>
     ))
   }
-</article>
+</section>
 
-<style></style>
+<style>
+  :root {
+    --black: #181818;
+    --text: #595566;
+    --muted: #eaeaea;
+    --container: 1200px;
+    --col: 792px;
+  }
+
+  .case-wrapper {
+    width: min(var(--container), 90%);
+    margin-inline: auto;
+    padding: 40px 0 120px;
+  }
+
+  .section {
+    padding: 56px 0;
+    border-top: 1px solid var(--muted);
+  }
+  .section:first-of-type {
+    border-top: none;
+  }
+
+  .h2 {
+    max-width: var(--col);
+    margin: 0 auto 16px;
+    color: var(--black);
+    font:
+      700 40px/1.16 "Cabin",
+      sans-serif;
+  }
+
+  .prose {
+    max-width: var(--col);
+    margin-inline: auto;
+  }
+
+  .prose p {
+    margin: 0 0 14px;
+    color: var(--text);
+    font:
+      400 16px/1.475 "Lato",
+      sans-serif;
+  }
+
+  .bullets {
+    max-width: var(--col);
+    margin: 16px auto 0;
+    padding-left: 18px;
+    list-style: disc outside;
+    color: var(--text);
+    font:
+      400 16px/1.475 "Lato",
+      sans-serif;
+  }
+
+  .figure {
+    margin: 28px auto 0;
+    border-radius: 14px;
+    overflow: hidden;
+  }
+  .figure img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+</style>

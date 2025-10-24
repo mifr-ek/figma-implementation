@@ -1,0 +1,136 @@
+---
+interface Props {
+  bg?: string;
+  eyebrow?: string;
+  titleLine1?: string;
+  titleLine2?: string;
+}
+
+import defaultBg from "@data/images/team.jpg?url";
+
+const {
+  bg = defaultBg,
+  eyebrow = "TEAM",
+  titleLine1 = "The Consultors",
+  titleLine2 = "",
+} = Astro.props as Props;
+
+const bgSrc = typeof bg === "string" && bg.trim().length > 0 ? bg : defaultBg;
+---
+
+<section
+  class="team-hero"
+  style={`--hero-bg: url('${bgSrc}')`}
+  aria-label="Team hero"
+>
+  <div class="hero-content">
+    <div class="title-box">
+      <span class="eyebrow">{eyebrow}</span>
+      <h1 class="title">
+        <span>{titleLine1}</span>
+        {titleLine2 && <span>{titleLine2}</span>}
+      </h1>
+    </div>
+  </div>
+</section>
+
+<style>
+  .team-hero {
+    position: relative;
+    min-height: 680px;
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .team-hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: var(--hero-bg);
+    background-size: cover;
+    background-position: 50% 50%;
+    opacity: 0.85;
+    z-index: 0;
+  }
+
+  .hero-content {
+    position: absolute;
+    top: 214px;
+    left: 330px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    z-index: 1;
+  }
+
+  .title-box {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(5.5px);
+    -webkit-backdrop-filter: blur(5.5px);
+    border-radius: 29px;
+    padding: 48px 60px 58px 60px;
+    display: grid;
+    gap: 10px;
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    height: 24px;
+    padding: 0 15px;
+    background: #ffcc4a;
+    color: #181818;
+    font:
+      400 16px/1 "Lato",
+      sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 2.32px;
+    border-radius: 20px;
+    width: max-content;
+  }
+
+  .title {
+    margin: 0;
+    color: #181818;
+    font:
+      700 50px/1.16 "Cabin",
+      sans-serif;
+    max-width: 668px;
+  }
+  .title span {
+    display: block;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 900px) {
+    .hero-content {
+      left: 60px;
+      top: 160px;
+    }
+    .title {
+      font-size: 42px;
+    }
+    .title-box {
+      padding: 36px 44px 46px;
+      border-radius: 24px;
+    }
+  }
+  @media (max-width: 600px) {
+    .hero-content {
+      left: 20px;
+      top: 120px;
+    }
+    .title {
+      font-size: 34px;
+    }
+    .eyebrow {
+      font-size: 14px;
+      height: 22px;
+      padding: 0 12px;
+      letter-spacing: 2px;
+    }
+    .title-box {
+      padding: 28px;
+      border-radius: 20px;
+    }
+  }
+</style>

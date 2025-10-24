@@ -1,16 +1,72 @@
 ---
 import Layout from "@layouts/Layout.astro";
+import CaseStudyHero from "@components/CaseStudyHero.astro";
+import CaseMetaStrip from "@components/CaseMetaStrip.astro";
 import CaseStudyArticle from "@components/CaseStudyArticle.astro";
-import HeroBgWrapper from "@components/helpers/HeroBgWrapper.astro";
+
+import data from "@data/caseStudy.json";
+import heroBg from "@data/images/case.png?url";
+import Newsletter from "@components/Newsletter.astro";
+
+const details = data.caseDetails;
+const sections = data.sections;
 ---
 
-<Layout>
-  <HeroBgWrapper imagePath="test.png">
-    <header>
-      <p>Case Studies</p>
-      <h1>Taxes & Efficiency</h1>
-    </header>
-  </HeroBgWrapper>
+<Layout title={details.caseName}>
+  <CaseStudyHero bg={heroBg} title={details.caseName} />
 
-  <CaseStudyArticle />
+  <section class="lead">
+    <div class="wrap">
+      <figure class="lead-fig">
+        <img src={details.image} alt="" />
+      </figure>
+
+      <div class="strip">
+        <CaseMetaStrip
+          caseName={details.caseName}
+          category={details.category}
+          date={details.date}
+          buttonLabel={details.buttonLabel}
+          buttonHref="#"
+        />
+      </div>
+    </div>
+  </section>
+
+  <CaseStudyArticle sections={sections} />
+
+  <Newsletter />
 </Layout>
+
+<style>
+  .lead {
+    padding: 80px 0 0;
+    background: #fff;
+  }
+  .wrap {
+    width: min(1100px, 90%);
+    margin-inline: auto;
+    position: relative;
+  }
+  .lead-fig {
+    margin: 0;
+  }
+  .lead-fig img {
+    width: 100%;
+    height: auto;
+    border-radius: 16px;
+    display: block;
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.16);
+  }
+  .strip {
+    position: relative;
+    margin-top: -34px;
+    padding: 0 24px;
+  }
+  @media (max-width: 700px) {
+    .strip {
+      margin-top: 16px;
+      padding: 0;
+    }
+  }
+</style>

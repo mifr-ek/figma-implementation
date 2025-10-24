@@ -1,24 +1,65 @@
 ---
-//@ts-nocheck
-import servicesData from "@data/services.json";
-console.log(servicesData);
+import ServiceCard from "@components/ServiceCards.astro";
+
+const items = [
+  {
+    title: "Finance & Restructuring",
+    description:
+      "Unlock financial clarity and implement effective restructuring strategies to optimize your business operations.",
+    ctaLabel: "Our Services",
+    href: "/about/",
+  },
+  {
+    title: "Our Approach",
+    description:
+      "Explore our proven methods for achieving growth and building resilience through customized solutions.",
+    ctaLabel: "More About",
+    href: "/team/",
+  },
+  {
+    title: "Consultalk Result",
+    description:
+      "Experience actionable insights and measurable results through expert consultation and tailored guidance.",
+    ctaLabel: "Explore Our Solution",
+    href: "/case/",
+  },
+];
 ---
 
-<ul>
-  {
-    servicesData.services.map((service) => (
-      <li>
-        <h2>{service.title}</h2>
-        <p>{service.description}</p>
-        <a href="#0">{service.buttonText}</a>
-      </li>
-    ))
-  }
-</ul>
+<section class="services">
+  <div class="services__grid">
+    {items.map((item) => <ServiceCard {...item} />)}
+  </div>
+</section>
 
 <style>
   @layer components {
-    li {
+    .services {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      flex-wrap: wrap;
+      margin-top: -60px;
+    }
+
+    .services__grid {
+      max-width: 1200px;
+      margin-inline: auto;
+      padding: 0 24px 72px;
+      display: grid;
+      gap: 24px;
+      grid-template-columns: repeat(3, 1fr);
+      align-items: stretch;
+      margin-top: -64px;
+    }
+
+    @media (max-width: 900px) {
+      .services__grid {
+        grid-template-columns: 1fr;
+        margin-top: -32px;
+      }
     }
   }
 </style>

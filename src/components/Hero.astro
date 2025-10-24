@@ -1,30 +1,120 @@
 ---
-import { Image } from "astro:assets";
-import Services from "./Services.astro";
-import CEOImage from "@assets/images/ceo.png";
+import Button from "@components/Button.astro";
+
+interface Props {
+  title: string;
+  description: string;
+  ctaLabel: string;
+  ctaHref?: string;
+  ctaVariant?: "light" | "yellow" | "dark";
+  image: any;
+  imageAlt?: string;
+}
+
+const {
+  title,
+  description,
+  ctaLabel,
+  ctaHref = "#0",
+  ctaVariant = "light",
+  image,
+  imageAlt = "",
+} = Astro.props;
 ---
 
 <section class="hero">
-  <div class="hero-content">
-    <h1>Empowering Your Business Growth</h1>
-    <p>
-      Discover tailored strategies and expert insights to take your business to
-      the next level. Let us help you navigate challenges and achieve
-      sustainable success.
-    </p>
-    <a href="#0">Book a Meeting</a>
-  </div>
-  <Image src={CEOImage} alt="CEO" />
+  <div class="hero__inner">
+    <div class="hero__copy">
+      <h1 class="hero__title">{title}</h1>
+      <p class="hero__lede">{description}</p>
+      <Button href={ctaHref} label={ctaLabel} variant="light" size="hero" />
+    </div>
 
-  <Services />
+    <div class="hero__image">
+      <img src={image.src} alt={imageAlt} decoding="async" loading="eager" />
+    </div>
+  </div>
 </section>
 
 <style>
-  /* Styles her */
-  @layer components {
-    .hero {
-      background-color: #f3f4f6;
-      padding: 2rem;
+  .hero {
+    position: relative;
+    background: #1b1b1b;
+    color: #fff;
+    overflow-x: hidden;
+  }
+
+  .hero__inner {
+    max-width: 1200px;
+    margin-inline: auto;
+    display: grid;
+    grid-template-columns: 560px 1fr;
+    column-gap: 56px;
+    align-items: stretch;
+    height: 680px;
+    padding: 0 40px;
+    position: relative;
+  }
+
+  .hero__copy {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 24px;
+    z-index: 2;
+  }
+
+  .hero__title {
+    margin: 0;
+    font-family: "Cabin", sans-serif;
+    font-size: clamp(44px, 4.8vw, 56px);
+    font-weight: 700;
+    line-height: 1.1;
+  }
+
+  .hero__lede {
+    color: #e9e9e9;
+    font-family: "Lato", sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    margin: 0 0 20px;
+  }
+
+  .hero__image {
+    position: relative;
+    height: 100%;
+    overflow: hidden;
+    inline-size: calc(100% + (50vw - 50%));
+    margin-inline-end: calc(50% - 50vw);
+    border-radius: 0;
+  }
+
+  .hero__image > img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center right;
+    display: block;
+  }
+
+  @media (min-width: 1200px) {
+    .hero__inner {
+      grid-template-columns: 520px 1.1fr;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .hero__inner {
+      grid-template-columns: 1fr;
+      padding: 60px 24px;
+      height: auto;
+    }
+    .hero__image {
+      inline-size: 100%;
+      margin-inline-end: 0;
+      height: 360px;
     }
   }
 </style>

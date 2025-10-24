@@ -1,0 +1,210 @@
+---
+import experienceData from "../data/experience.json";
+const { heading, subheading, stats } = experienceData;
+
+const STYLE_BY_LABEL: Record<string, { dot: number; beige: number }> = {
+  Consistency: { dot: 348, beige: 22 },
+  Improvement: { dot: 26, beige: 14 },
+  Branching: { dot: 20, beige: 18 },
+};
+
+const RING_SIZE = 168; 
+const RING_THK = 8; 
+const BEIGE_LEN = 12; 
+---
+
+<section class="xp" aria-labelledby="xp-title">
+  <div class="xp__inner">
+    <div class="xp__content">
+      <header class="xp__head">
+        <p class="xp__eyebrow">EXPERIENCE</p>
+        <h2 id="xp-title" class="xp__title">{heading}</h2>
+        <p class="xp__lede">{subheading}</p>
+      </header>
+
+      <ul class="xp__stats" role="list">
+        {
+          stats.map((s) => {
+            const style = STYLE_BY_LABEL[s.label] ?? { dot: 330, beige: 15 };
+
+            return (
+              <li class="xp__item">
+                <div
+                  class="ring"
+                  style={`--size:${RING_SIZE}px; --thk:${RING_THK}px; --dot:${style.dot}deg; --beige:${style.beige}deg; --beige-len:${BEIGE_LEN};`}
+                >
+                  <svg
+                    class="ring__svg"
+                    viewBox="0 0 100 100"
+                    aria-hidden="true"
+                  >
+                    {}
+                    <circle
+                      class="arc"
+                      cx="50"
+                      cy="50"
+                      r="45"
+                      pathLength="100"
+                      stroke-dasharray="100 0"
+                    />
+
+                    {}
+                    <g transform={`rotate(${style.beige} 50 50)`}>
+                      <circle
+                        class="beige"
+                        cx="50"
+                        cy="50"
+                        r="45"
+                        pathLength="100"
+                        stroke-dasharray={`var(--beige-len) calc(100 - var(--beige-len))`}
+                      />
+                    </g>
+                  </svg>
+
+                  {}
+                  <span class="dot" aria-hidden="true" />
+
+                  {}
+                  <span class="val">{s.value}%</span>
+                </div>
+
+                <p class="xp__label">{s.label}</p>
+              </li>
+            );
+          })
+        }
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  @layer components {
+    :root {
+      --xp-yellow: #fbc336;
+      --xp-dark: #181818;
+    }
+
+    .xp {
+      background: var(--xp-yellow);
+      color: var(--xp-dark);
+      min-height: 528px;
+      display: grid;
+      align-items: center;
+    }
+    .xp__inner {
+      width: 100%;
+      padding: 40px 24px;
+      margin-inline: auto;
+    }
+    @media (min-width: 1280px) {
+      .xp__inner {
+        padding-left: 360px;
+        padding-right: 193px;
+      }
+    }
+
+    .xp__content {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      align-items: center;
+      column-gap: 89px;
+    }
+
+    .xp__head {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .xp__eyebrow {
+      margin: 0;
+      letter-spacing: 0.18em;
+      font:
+        600 11px/1 "Lato",
+        sans-serif;
+      opacity: 0.9;
+    }
+    .xp__title {
+      margin: 0;
+      font:
+        700 45px/1.16 "Cabin",
+        sans-serif;
+    }
+    .xp__lede {
+      margin: 0;
+      max-width: 375px;
+      font:
+        400 18px/1.48 "Lato",
+        sans-serif;
+    }
+
+    .xp__stats {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 26px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    .xp__item {
+      display: grid;
+      justify-items: center;
+      gap: 12px;
+    }
+
+    .ring {
+      position: relative;
+      width: var(--size);
+      height: var(--size);
+    }
+    .ring__svg circle {
+      fill: none;
+      stroke-linecap: butt;
+      stroke-width: var(--thk);
+    }
+    .arc {
+      stroke: #fff;
+    }
+    .beige {
+      stroke: #daae3c;
+      opacity: 0.95;
+    }
+
+    .val {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      font:
+        700 45px/1.16 "Cabin",
+        sans-serif;
+      color: #181818;
+      z-index: 3;
+    }
+
+    .dot {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: #181818;
+      border: 4px solid #fff;
+      transform: translate(-50%, -50%) rotate(var(--dot))
+        translate(calc(var(--size) * 0.45));
+      box-shadow: 0 8px 8px rgba(245, 234, 207, 0.9);
+      z-index: 2;
+    }
+
+    .xp__label {
+      margin: 0;
+      text-align: center;
+      color: #181818;
+      font:
+        600 22px/1.16 "Cabin",
+        sans-serif;
+    }
+  }
+</style>

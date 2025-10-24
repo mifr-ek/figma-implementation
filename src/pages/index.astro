@@ -1,8 +1,75 @@
 ---
 import Layout from "@layouts/Layout.astro";
 import Hero from "@components/Hero.astro";
+import Services from "@components/Services.astro";
+import Expect from "@components/Expect.astro";
+import Projections from "@components/Projections.astro";
+import Experience from "@components/Experience.astro";
+import CoreValues from "../components/CoreValues.astro";
+import Contact from "@components/Contact.astro";
+import Newsletter from "@components/Newsletter.astro";
+import CEOImage from "@assets/images/ceo.png";
+import BalanceIcon from "@icons/cal.svg";
+import IncomeIcon from "@icons/card.svg";
+import PlanIcon from "@icons/law.svg";
+import RatioIcon from "@icons/money.svg";
+const items = [
+  {
+    title: "The Balance Sheet",
+    text: "The Balance Sheet is a summary of the assets and liabilities and equity of a business at a specific point of time.",
+    Icon: BalanceIcon,
+  },
+  {
+    title: "Income Statement",
+    text: "The Income (Profit and Loss) Statement summarises revenue and expenses for a specific time period (one month, one quarter, one year, etc.).",
+    Icon: IncomeIcon,
+    featured: true,
+  },
+  {
+    title: "Financial Plan",
+    text: "Keep your information current and review the documents on a regular basis.",
+    Icon: PlanIcon,
+  },
+  {
+    title: "Financial Ratios",
+    text: "Ratios are useful when comparing your company with the competition and for benchmarking.",
+    Icon: RatioIcon,
+  },
+];
 ---
 
-<Layout>
-  <Hero />
+<Layout title="Home">
+  <main>
+    <Hero
+      title="Empowering Your Business Growth"
+      description="Discover tailored strategies and expert insights to take your business to the next level. Let us help you navigate challenges and achieve sustainable success."
+      ctaLabel="Book a Meeting"
+      ctaHref="/contact/"
+      ctaVariant="light"
+      image={CEOImage}
+      imageAlt="Portrait of the CEO"
+    />
+
+    <Services />
+
+    <Expect />
+
+    <Projections items={items} />
+
+    <Experience
+      years={25}
+      subtitle="3000+ our clients are insured around the World"
+      stats={[
+        { value: 85, label: "Consistency" },
+        { value: 95, label: "Improvement" },
+        { value: 90, label: "Branching" },
+      ]}
+    />
+
+    <CoreValues />
+
+    <Contact />
+
+    <Newsletter />
+  </main>
 </Layout>

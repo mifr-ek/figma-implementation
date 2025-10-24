@@ -1,0 +1,259 @@
+---
+import Button from "@components/Button.astro";
+import employees from "@data/employees.json";
+
+import InstagramIcon from "/src/icons/instagram.svg";
+import FacebookIcon from "/src/icons/facebook.svg";
+import TwitterIcon from "/src/icons/twitter.svg";
+
+const icons = {
+  instagram: InstagramIcon,
+  facebook: FacebookIcon,
+  twitter: TwitterIcon,
+};
+---
+
+<section class="team-intro" aria-labelledby="team-intro-title">
+  <div class="container">
+    <div class="top">
+      <div class="copy">
+        <h2 id="team-intro-title" class="title">Meet Our Great Team</h2>
+        <p class="lede">
+          Welcome to our amazing team! We are a group of passionate individuals
+          dedicated to excellence and innovation. Each member brings unique
+          skills and experiences, working together to achieve our goals. Join us
+          as we embark on exciting projects and create lasting impacts.
+        </p>
+      </div>
+
+      <Button
+        href="#"
+        label="Join our team"
+        variant="dark"
+        size="default"
+        class="intro-cta"
+        ariaLabel="Join our team"
+      />
+    </div>
+
+    <div class="cards">
+      {
+        employees.slice(0, 6).map((person) => (
+          <article class="card">
+            {}
+            <a
+              class="card-link"
+              href={`/team/${person.slug}`}
+              aria-label={`View ${person.name}'s profile`}
+            >
+              <figure class="photo">
+                <img src={person.img} alt={person.name} />
+                <span
+                  class={`tag ${person.title === "CEO at Company" ? "yellow" : "dark"}`}
+                >
+                  {person.title}
+                </span>
+              </figure>
+
+              <h3 class="name">{person.name}</h3>
+            </a>
+
+            <p class="bio">{person.description}</p>
+
+            <div class="socials">
+              {person.social_links.map((link) => {
+                const Icon = icons[link.platform];
+                return (
+                  <a href={link.url} aria-label={link.platform} class="icon">
+                    <Icon />
+                  </a>
+                );
+              })}
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  :root {
+    --black: #181818;
+    --text: #595566;
+    --tag-yellow: #ffcc4a;
+    --tag-dark: rgba(0, 0, 0, 0.75);
+    --accent: #ffcc4a;
+  }
+
+  .team-intro {
+    --photo-w: 327px;
+    --photo-h: 347px;
+    background: #fff;
+    padding: 120px 0 100px;
+  }
+
+  .container {
+    width: min(1200px, 90%);
+    margin-inline: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 43px;
+  }
+
+  .top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 40px;
+  }
+
+  .copy {
+    max-width: 640px;
+  }
+
+  .title {
+    margin: 0 0 12px;
+    font:
+      700 45px/1.16 "Cabin",
+      sans-serif;
+    color: var(--black);
+  }
+
+  .lede {
+    margin: 0;
+    font:
+      400 16px/1.475 "Lato",
+      sans-serif;
+    color: var(--text);
+  }
+
+  .intro-cta {
+    margin-top: 10px;
+  }
+
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(3, var(--photo-w));
+    gap: 80px 51px;
+    justify-content: center;
+  }
+
+  .card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 25px;
+    width: var(--photo-w);
+  }
+
+  .card-link {
+    display: contents;
+    color: inherit;
+    text-decoration: none;
+  }
+  .card-link:focus-visible .name {
+    outline: 2px solid var(--accent);
+    outline-offset: 4px;
+    border-radius: 6px;
+  }
+
+  .photo {
+    position: relative;
+    width: var(--photo-w);
+    height: var(--photo-h);
+    border-radius: 15px;
+    overflow: hidden;
+  }
+  .photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .tag {
+    position: absolute;
+    bottom: 25px;
+    right: 21px;
+    padding: 4px 21px;
+    border-radius: 29px;
+    font:
+      600 14px/1 "Lato",
+      sans-serif;
+    backdrop-filter: blur(5.5px);
+    -webkit-backdrop-filter: blur(5.5px);
+  }
+  .tag.yellow {
+    background: var(--tag-yellow);
+    color: var(--black);
+  }
+  .tag.dark {
+    background: var(--tag-dark);
+    color: #fff;
+  }
+
+  .name {
+    margin: 0;
+    font:
+      700 30px/1.16 "Cabin",
+      sans-serif;
+    color: var(--black);
+    transition:
+      transform 0.15s ease,
+      opacity 0.15s ease;
+  }
+
+  .bio {
+    margin: 0;
+    font:
+      400 16px/1.475 "Lato",
+      sans-serif;
+    color: var(--text);
+    max-width: 328px;
+  }
+
+  .socials {
+    display: flex;
+    gap: 10px;
+  }
+  .icon :global(svg) {
+    width: 24px;
+    height: 24px;
+    fill: var(--black);
+    opacity: 0.9;
+    transition:
+      transform 0.15s ease,
+      opacity 0.15s ease;
+  }
+  .icon:hover :global(svg) {
+    transform: translateY(-2px);
+    opacity: 1;
+  }
+
+  @media (max-width: 1100px) {
+    .cards {
+      grid-template-columns: repeat(2, var(--photo-w));
+    }
+  }
+  @media (max-width: 700px) {
+    .top {
+      flex-direction: column;
+      gap: 20px;
+    }
+    .cards {
+      grid-template-columns: 1fr;
+      justify-content: center;
+    }
+    .card,
+    .photo {
+      width: 100%;
+      max-width: var(--photo-w);
+    }
+    .photo {
+      height: auto;
+      aspect-ratio: calc(var(--photo-w) / var(--photo-h));
+    }
+  }
+</style>

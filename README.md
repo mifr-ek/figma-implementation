@@ -10,7 +10,7 @@ Et andet centralt punkt var at håndtere knappernes hover-effekter ensartet. Jeg
 }"
 
 Jeg har prøvet mit bedste med at arbejde ud fra DRY-princippet (Don’t Repeat Yourself) ved at genbruge komponenter som Nav.astro, Footer.astro og Newsletter.astro på tværs af siderne.
-Derudover er der brugt semantiske HTML-tags som <header>, <section> og <article> for at forbedre både struktur og tilgængelighed.
+Derudover er der brugt semantiske HTML-tags som < header>, < section> og < article> for at forbedre både struktur og tilgængelighed.
 
 Jeg brugte også responsive grids og flexbox til layout, fx i team-sektionen:
 ".cards {

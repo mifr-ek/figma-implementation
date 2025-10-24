@@ -1,7 +1,17 @@
-De største udfordringer var at få design og spacing til at matche 1:1 med Figma – især i sektioner som AboutHero og Services. Jeg lærte vigtigheden af præcise marginer og padding samt at bruge CSS-variabler i stedet for enkelt vise-kodede farver, for at sikre konsistens på tværs af komponenter.
+I denne opgave har jeg arbejdet med at genskabe et Figma-design 1:1 i Astro, og det har virkelig givet mig en forståelse for, hvor meget detalje-nørderi der ligger i at få et design til at se præcist rigtigt ud.
+Jeg startede med at tro at “det nok bare handlede om at skrive noget HTML og lidt CSS”, men fandt hurtigt ud af at der ligger meget mere bag.
 
-Et andet centralt punkt var at håndtere knappernes hover-effekter ensartet. Jeg løste det ved at samle alle varianter i én komponent (Button.astro) og styre farvevariationer gennem klasser som:
-".btn--yellow:hover {
+De største udfordringer var helt klart at få spacing, tekstknæk og placeringer til at matche Figma – især i sektionerne AboutHero og Services.
+Jeg brugte virkelig meget tid på marginer og padding og lærte, hvor vigtigt det er at arbejde konsekvent, især når man har flere sektioner der overlapper eller bruger negative marginer for at opnå Figma-effekten.
+
+Jeg begyndte også at arbejde med CSS-variabler i stedet for hårdkodede farver. Fx kunne jeg bare ændre --accent-color ét sted, og så blev alle de gule elementer opdateret på tværs af hele sitet. Det gav mig en meget bedre fornemmelse for, hvordan man holder sit design fleksibelt og vedligeholdelsesvenligt.
+
+Et af de steder, jeg virkelig blev klogere, var i arbejdet med komponenter.
+Jeg prøvede mit bedste på at følge DRY-princippet (Don’t Repeat Yourself) ved at genbruge ting som Nav.astro, Footer.astro og Newsletter.astro i stedet for at kopiere den samme kode igen og igen.
+Det gav mig et meget mere professionelt workflow – og jeg begyndte at tænke i komponenter i stedet for “sider med kode”.
+
+Et konkret eksempel var mine knapper.
+I starten havde jeg forskellige knap-styles rundt omkring, men det blev hurtigt rodet og derfor samlede jeg det hele i én komponent – Button.astro – hvor alle varianterne styres med klasser som: ".btn--yellow:hover {
   background: #ffe5a2;
 }
 .btn--dark:hover {
@@ -9,11 +19,8 @@ Et andet centralt punkt var at håndtere knappernes hover-effekter ensartet. Jeg
   color: #181818;
 }"
 
-Jeg har prøvet mit bedste med at arbejde ud fra DRY-princippet (Don’t Repeat Yourself) ved at genbruge komponenter som Nav.astro, Footer.astro og Newsletter.astro på tværs af siderne.
-Derudover er der brugt semantiske HTML-tags som < header>, < section> og < article> for at forbedre både struktur og tilgængelighed.
-
-Jeg brugte også responsive grids og flexbox til layout, fx i team-sektionen:
-".cards {
+Jeg blev også udfordret med noget af det, jeg har sværest ved. Nemlig Grid og Flexbox.
+Jeg brugte grid i Team-sektionen til at placere kortene i tre kolonner på desktop og automatisk skifte til én kolonne på mobil: ".cards {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 80px 51px;
@@ -24,9 +31,8 @@ Jeg brugte også responsive grids og flexbox til layout, fx i team-sektionen:
   }
 }"
 
-Jeg har valgt at holde al CSS komponent-specifik i stedet for at bruge en samlet global stylesheet.
-Det betyder, at hver .astro-fil indeholder sine egne <style>-regler, fx:
-"<style>
+Jeg valgte at holde al CSS komponent-specifik i stedet for at bruge et globalt stylesheet.
+Det betyder, at hver .astro-fil indeholder sine egne <style>-regler, fx: "<style>
   .hero {
     display: flex;
     align-items: center;
@@ -34,8 +40,8 @@ Det betyder, at hver .astro-fil indeholder sine egne <style>-regler, fx:
   }
 </style>"
 
-Jeg har også arbejdet med JSON-filer til at hente data ind i komponenter — fx i Projections.astro, hvor dataene kommer fra financialProjections.json:
-"{
+Jeg arbejdede også med JSON-filer til at trække data ind i komponenter – fx i Projections.astro, hvor indholdet hentes fra financialProjections.json.
+Det var lidt svært for mig i begyndelsen, men jeg syntes det var ret fedt, at jeg kunne opbygge kort dynamisk ved at mappe over dataene: "{
   "title": "Financial Projections",
   "values": [
     {
@@ -46,10 +52,8 @@ Jeg har også arbejdet med JSON-filer til at hente data ind i komponenter — fx
   ]
 }"
 
-
-Gennem opgaven har jeg fået erfaring med at
-- Arbejde med komponentstruktur i Astro
-- Afprøve præcise designmatch med Figma
-- Organisere CSS lokalt i komponenter
-- Bruge Git og GitHub som versionsstyring
-- Deploye en færdig side via Netlify.
+Alt i alt har opgaven givet mig en bedre forståelse af:
+- hvordan man tænker i komponenter og genbrug
+- hvordan man får et design til at matche præcist med Figma
+- hvordan man organiserer CSS lokalt i stedet for globalt
+- og hvordan GitHub og Netlify bruges til at gøre et projekt offentligt
